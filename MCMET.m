@@ -53,7 +53,7 @@ Tmn = 0.2e-12;
 vth = sqrt(2*C.kb * C.T / C.m_n);
 MFP = vth*Tmn;
 
-
+figure(1)
 subplot(2,1,1);
 rectangle('Position',[0 0 200e-9 100e-9])
 hold on
@@ -159,10 +159,12 @@ subplot(2,1,2);
 title('Mean Temperature over Time')
 xlabel('Timesteps (1e-14 s per step)') 
 ylabel('Temperature (K)')
-
 disp('Section 1')
 fprintf('\nThe thermal velocity is %f meters per second.',vth)
 fprintf('\nThe mean free path is %f nanometers.\n',MFP*1e9)
+pause(0.1)
+saveas(gcf,'Figure1')
+
 
 %%% All requirements met.
 
@@ -184,13 +186,15 @@ fprintf('\nThe mean free path is %f nanometers.\n',MFP*1e9)
 
 
 % Initialization
+clear all
+figure(2)
 set(0,'DefaultFigureWindowStyle','docked')
-set(0,'defaultaxesfontsize',20)
+set(0,'defaultaxesfontsize',10)
 set(0,'defaultaxesfontname','Times New Roman')
 set(0,'DefaultLineLineWidth', 0.5);
 
-close all
-clear all
+
+
 global C
 
 C.q_0 = 1.60217653e-19;             % electron charge
@@ -209,9 +213,7 @@ C.vth = sqrt(2*C.kb * C.T / C.m_n);
 
 
 temp = C.T;
-
 subplot(2,1,1);
-figure(1)
 rectangle('Position',[0 0 200e-9 100e-9])
 hold on
 
@@ -227,9 +229,6 @@ j = 0;
 for i=1:N
     px(i) = 0 + (200e-9 - 0).*rand(1,1);
     py(i) = 0 + (100e-9 - 0).*rand(1,1);
-%     subplot(2,1,1);
-%     plot(px(i),py(i),'b.')
-%     hold on
 end
 
 %--------------------------------------------------------------------------
@@ -239,16 +238,9 @@ end
 vth = C.vth;
 
 for j=1:N
-%     v0(j) = MaxBoltzDis();                                % Velocity of electron
-%     theta(j) = 0 + (360 - 0).*rand(1,1);        % Angle of electron
-%     if theta(j) == 360
-%         theta(j) = 0;
-%     end
-%     vx(j) = v0(j)*cos(theta(j));
-    vx(j) = (vth/sqrt(2))*randn();                            % Velocity in x axis
+    vx(j) = (vth/sqrt(2))*randn();                           
     vy(j) = (vth/sqrt(2))*randn();
     vth_calc(j) = sqrt(vx(j)^2 + vy(j)^2);
-    %vy(j) = v0(j)*sin(theta(j));                % Velocity in y axis
 end
 
 
@@ -271,7 +263,6 @@ for t=2:100
     for k=1:N
         
         P_scat(k) = 1 - exp(-(dt/Tmn));
-        %r = 0.8 + (1 - 0.8).*rand(1,1);
         if P_scat(k) > rand()
             vx(k) = (vth/sqrt(2))*randn();
             vy(k) = (vth/sqrt(2))*randn();
@@ -285,7 +276,6 @@ for t=2:100
         py(k) = py(k) + vy(k)*dt;
         
         if py(k) >= 100e-9 || py(k) <= 0
-            %[theta(k),vx(k),vy(k)] = SpecRef(theta(k),vx(k),vy(k));
             vy(k) = -vy(k);
             if py(k) >= 100e-9
                 py(k) = 100e-9;
@@ -318,7 +308,6 @@ for t=2:100
     T_prev = T;
     T = KE / C.kb;
     subplot(2,1,2);
-    %plot(t, T, 'b.')
     plot([t-1 t], [T_prev T],'r')
     hold on
     
@@ -327,6 +316,7 @@ end
 
 T_T_C = mean(ndt)
 MFP = mean(v)*mean(ndt)
-figure(2)
+figure(3)
 histogram(vth_calc,10)
+mean(vth_calc)
 
