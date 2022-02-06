@@ -21,11 +21,8 @@ C.m_n = 0.26 * C.m_0;               % effective electron mass
 C.am = 1.66053892e-27;              % atomic mass unit
 C.T = 300;                          % temperature
 
-% Mean free path and thermal velocity
-Tmn = 0.2e-12;
+Tmn = 0.2
 vth = sqrt(2*C.kb * C.T / C.m_n);
-MFP = vth*Tmn;
-
 
 subplot(2,1,1);
 rectangle('Position',[0 0 200e-9 100e-9])

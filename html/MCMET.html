@@ -1,0 +1,698 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>ELEC 4700 Assignment 1</title><meta name="generator" content="MATLAB 9.8"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-02-06"><meta name="DC.source" content="MCMET.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>ELEC 4700 Assignment 1</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Monte-Carlo Modeling of Electron Transport</a></li><li><a href="#2">Section 1: Electron Modeling</a></li><li><a href="#3">All requirements met.</a></li><li><a href="#4">Section 2: Collisions with Mean Free Path</a></li></ul></div><h2 id="1">Monte-Carlo Modeling of Electron Transport</h2><p>Keegan Mauger 101042551</p><h2 id="2">Section 1: Electron Modeling</h2><p>To initialize the model, constants and a general region are created. The electrons are given an effective mass, and will act as carriers in an N-type Si semiconductor crystal. The region is to be modeled as a rectangle with dimensions of 200nm x 100nm, while the electrons have an effective mass of <img src="MCMET_eq00733626314999582057.png" alt="$0.26m_n$">. Assuming the temperature of the block is 300K, the thermal velocity was calculated to be <img src="MCMET_eq16986613341317362479.png" alt="$vth = 1.8702e-5 m/s$">, and using this, and the given mean time between collisions of 0.2ps, the mean free path was calculated as <img src="MCMET_eq15871397525993775695.png" alt="$MFP = 3.7404e-8 m$">, or 37.404nm.</p><p>A program was written to model the random motion of electrons. At the start of the program, each electron is given a random direction, with fixed velocity. The electrons reflect off of the y-axis bounds, and are transported to the opposite x-axis border should they connect with one of the two x-axis limits.</p><p>The program produces two plots. The first is a plot of the movements for a subset of electrons, showcasing the random directions and reflections. The second plot shows the mean temperature of all electrons. As the electrons were all given a fixed temperature (300K), this mean temperature also remains fixed at 300K, indicating the expected results.</p><pre class="codeinput"><span class="comment">% Initialization</span>
+set(0,<span class="string">'DefaultFigureWindowStyle'</span>,<span class="string">'docked'</span>)
+set(0,<span class="string">'defaultaxesfontsize'</span>,10)
+set(0,<span class="string">'defaultaxesfontname'</span>,<span class="string">'Times New Roman'</span>)
+set(0,<span class="string">'DefaultLineLineWidth'</span>, 0.5);
+
+run <span class="string">WC</span>
+<span class="keyword">global</span> C
+
+C.q_0 = 1.60217653e-19;             <span class="comment">% electron charge</span>
+C.hb = 1.054571596e-34;             <span class="comment">% Dirac constant</span>
+C.h = C.hb * 2 * pi;                <span class="comment">% Planck constant</span>
+C.m_0 = 9.10938215e-31;             <span class="comment">% electron mass</span>
+C.kb = 1.3806504e-23;               <span class="comment">% Boltzmann constant</span>
+C.eps_0 = 8.854187817e-12;          <span class="comment">% vacuum permittivity</span>
+C.mu_0 = 1.2566370614e-6;           <span class="comment">% vacuum permeability</span>
+C.c = 299792458;                    <span class="comment">% speed of light</span>
+C.g = 9.80665;                      <span class="comment">% metres (32.1740 ft) per s&sup2;</span>
+C.m_n = 0.26 * C.m_0;               <span class="comment">% effective electron mass</span>
+C.am = 1.66053892e-27;              <span class="comment">% atomic mass unit</span>
+C.T = 300;                          <span class="comment">% temperature</span>
+
+<span class="comment">% Mean free path and thermal velocity</span>
+Tmn = 0.2e-12;
+vth = sqrt(2*C.kb * C.T / C.m_n);
+MFP = vth*Tmn;
+
+
+subplot(2,1,1);
+rectangle(<span class="string">'Position'</span>,[0 0 200e-9 100e-9])
+hold <span class="string">on</span>
+
+<span class="comment">%--------------------------------------------------------------------------</span>
+<span class="comment">% Initializing Positions</span>
+<span class="comment">%--------------------------------------------------------------------------</span>
+
+
+N = 100;        <span class="comment">% Number of electrons</span>
+i = 0;
+j = 0;
+
+<span class="keyword">for</span> i=1:N
+    px(i) = 0 + (200e-9 - 0).*rand(1,1);
+    py(i) = 0 + (100e-9 - 0).*rand(1,1);
+<span class="keyword">end</span>
+
+<span class="comment">% Thermal Velocity and Direction</span>
+
+<span class="keyword">for</span> j=1:N
+    v0(j) = vth;                                <span class="comment">% Velocity of electron</span>
+    theta(j) = 0 + (360 - 0).*rand(1,1);        <span class="comment">% Angle of electron</span>
+    <span class="keyword">if</span> theta(j) == 360
+        theta(j) = 0;
+    <span class="keyword">end</span>
+    vx(j) = v0(j)*cos(theta(j));                <span class="comment">% Velocity in x axis</span>
+    vy(j) = v0(j)*sin(theta(j));                <span class="comment">% Velocity in y axis</span>
+<span class="keyword">end</span>
+<span class="comment">%</span>
+
+<span class="comment">%--------------------------------------------------------------------------</span>
+<span class="comment">% Updating particle locations using velocity and angle</span>
+<span class="comment">%--------------------------------------------------------------------------</span>
+<span class="comment">% Want to choose a time step so that an electron can cover 1/100th of the</span>
+<span class="comment">% region in that time</span>
+<span class="comment">% starting velocity = 1.3224e5 m/s</span>
+<span class="comment">% spacial step = 100e-9/100 = 100e-11 m</span>
+<span class="comment">% so time step will be 1.3224e14 steps/s</span>
+<span class="comment">% or 7.56e-15 s/step, approximate to 1e-14 s/step</span>
+
+
+t = 0;
+T(1) = 0;
+dt = 1e-14;     <span class="comment">% time step</span>
+px_prev = 0;
+py_prev = 0;
+T_prev = 0;
+
+sampleidx = randi(N,10,1);
+figure(1)
+<span class="keyword">for</span> t=2:100
+    <span class="keyword">for</span> k=1:N
+        px_prev(k) = px(k);
+        px(k) = px(k) + vx(k)*dt;
+        py_prev(k) = py(k);
+        py(k) = py(k) + vy(k)*dt;
+
+        <span class="keyword">if</span> py(k) &gt;= 100e-9 || py(k) &lt;= 0
+            [theta(k),vx(k),vy(k)] = SpecRef(theta(k),vx(k),vy(k));
+            <span class="keyword">if</span> py(k) &gt;= 100e-9
+                py(k) = 100e-9;
+            <span class="keyword">elseif</span> py(k) &lt;= 0
+                py(k) = 0;
+            <span class="keyword">end</span>
+        <span class="keyword">end</span>
+        <span class="keyword">if</span> px(k) &gt;= 200e-9
+            px(k) = 0;
+            px_prev(k) = px(k);
+        <span class="keyword">elseif</span> px(k) &lt;= 0
+            px(k) = 200e-9;
+            px_prev(k) = px(k);
+        <span class="keyword">else</span>
+            px(k) = px(k);
+        <span class="keyword">end</span>
+
+        v(k) = sqrt(vx(k)^2 + vy(k)^2);
+        v2(k) = v(k).*v(k);
+
+    <span class="keyword">end</span>
+    <span class="keyword">for</span> h=1:length(sampleidx)
+        subplot(2,1,1);
+        plot([px_prev(sampleidx(h)) px(sampleidx(h))],[py_prev(sampleidx(h)) py(sampleidx(h))],<span class="string">'SeriesIndex'</span>,h)
+        hold <span class="string">on</span>
+    <span class="keyword">end</span>
+
+    KE = 0.5 * C.m_n * mean(v2);
+    T_prev = T;
+    T = KE /C.kb;
+    subplot(2,1,2);
+    plot([t-1 t], [T_prev T],<span class="string">'r'</span>)
+    hold <span class="string">on</span>
+
+    pause(0.001)
+<span class="keyword">end</span>
+
+
+subplot(2,1,1);
+title(<span class="string">'Random Movements of Electrons'</span>)
+xlabel(<span class="string">'Region Width (m)'</span>)
+ylabel(<span class="string">'Region Height (m)'</span>)
+subplot(2,1,2);
+title(<span class="string">'Mean Temperature over Time'</span>)
+xlabel(<span class="string">'Timesteps (1e-14 s per step)'</span>)
+ylabel(<span class="string">'Temperature (K)'</span>)
+
+disp(<span class="string">'Section 1'</span>)
+fprintf(<span class="string">'\nThe thermal velocity is %f meters per second.'</span>,vth)
+fprintf(<span class="string">'\nThe mean free path is %f nanometers.\n'</span>,MFP*1e9)
+</pre><h2 id="3">All requirements met.</h2><pre class="codeoutput">Section 1
+
+The thermal velocity is 187019.267608 meters per second.
+The mean free path is 37.403854 nanometers.
+</pre><img vspace="5" hspace="5" src="MCMET_01.png" alt=""> <h2 id="4">Section 2: Collisions with Mean Free Path</h2><p>Modifying the code of Section 1, each starting electron is given a randomized vecolcity for its x and y components using a Maxwell-Boltzmann distribution.</p><pre class="codeinput"><span class="comment">%The average speed is found to be</span>
+
+
+<span class="comment">% Initialization</span>
+set(0,<span class="string">'DefaultFigureWindowStyle'</span>,<span class="string">'docked'</span>)
+set(0,<span class="string">'defaultaxesfontsize'</span>,20)
+set(0,<span class="string">'defaultaxesfontname'</span>,<span class="string">'Times New Roman'</span>)
+set(0,<span class="string">'DefaultLineLineWidth'</span>, 0.5);
+
+close <span class="string">all</span>
+clear <span class="string">all</span>
+<span class="keyword">global</span> C
+
+C.q_0 = 1.60217653e-19;             <span class="comment">% electron charge</span>
+C.hb = 1.054571596e-34;             <span class="comment">% Dirac constant</span>
+C.h = C.hb * 2 * pi;                <span class="comment">% Planck constant</span>
+C.m_0 = 9.10938215e-31;             <span class="comment">% electron mass</span>
+C.kb = 1.3806504e-23;               <span class="comment">% Boltzmann constant</span>
+C.eps_0 = 8.854187817e-12;          <span class="comment">% vacuum permittivity</span>
+C.mu_0 = 1.2566370614e-6;           <span class="comment">% vacuum permeability</span>
+C.c = 299792458;                    <span class="comment">% speed of light</span>
+C.g = 9.80665;                      <span class="comment">% metres (32.1740 ft) per s&sup2;</span>
+C.m_n = 0.26 * C.m_0;               <span class="comment">% effective electron mass</span>
+C.am = 1.66053892e-27;              <span class="comment">% atomic mass unit</span>
+C.T = 300;
+C.vth = sqrt(2*C.kb * C.T / C.m_n);
+
+
+temp = C.T;
+
+subplot(2,1,1);
+figure(1)
+rectangle(<span class="string">'Position'</span>,[0 0 200e-9 100e-9])
+hold <span class="string">on</span>
+
+<span class="comment">%--------------------------------------------------------------------------</span>
+<span class="comment">% Initializing Positions</span>
+<span class="comment">%--------------------------------------------------------------------------</span>
+
+
+N = 1000;        <span class="comment">% Number of electrons</span>
+i = 0;
+j = 0;
+
+<span class="keyword">for</span> i=1:N
+    px(i) = 0 + (200e-9 - 0).*rand(1,1);
+    py(i) = 0 + (100e-9 - 0).*rand(1,1);
+<span class="comment">%     subplot(2,1,1);</span>
+<span class="comment">%     plot(px(i),py(i),'b.')</span>
+<span class="comment">%     hold on</span>
+<span class="keyword">end</span>
+
+<span class="comment">%--------------------------------------------------------------------------</span>
+<span class="comment">% Thermal Velocity and Direction</span>
+<span class="comment">%--------------------------------------------------------------------------</span>
+
+vth = C.vth;
+
+<span class="keyword">for</span> j=1:N
+<span class="comment">%     v0(j) = MaxBoltzDis();                                % Velocity of electron</span>
+<span class="comment">%     theta(j) = 0 + (360 - 0).*rand(1,1);        % Angle of electron</span>
+<span class="comment">%     if theta(j) == 360</span>
+<span class="comment">%         theta(j) = 0;</span>
+<span class="comment">%     end</span>
+<span class="comment">%     vx(j) = v0(j)*cos(theta(j));</span>
+    vx(j) = (vth/sqrt(2))*randn();                            <span class="comment">% Velocity in x axis</span>
+    vy(j) = (vth/sqrt(2))*randn();
+    vth_calc(j) = sqrt(vx(j)^2 + vy(j)^2);
+    <span class="comment">%vy(j) = v0(j)*sin(theta(j));                % Velocity in y axis</span>
+<span class="keyword">end</span>
+
+
+t = 0;
+T(1) = 0;
+dt = 1e-14;     <span class="comment">% time step</span>
+
+<span class="keyword">for</span> l=1:N           <span class="comment">%Scattering time step</span>
+    ndt(l) = dt;
+<span class="keyword">end</span>
+P_scat = 0;
+Tmn = 0.2e-12;
+
+px_prev = 0;
+py_prev = 0;
+T_prev = 0;
+
+sampleidx = randi(N,10,1);
+<span class="keyword">for</span> t=2:100
+    <span class="keyword">for</span> k=1:N
+
+        P_scat(k) = 1 - exp(-(dt/Tmn));
+        <span class="comment">%r = 0.8 + (1 - 0.8).*rand(1,1);</span>
+        <span class="keyword">if</span> P_scat(k) &gt; rand()
+            vx(k) = (vth/sqrt(2))*randn();
+            vy(k) = (vth/sqrt(2))*randn();
+        <span class="keyword">else</span>
+            ndt(k) = ndt(k) + dt;
+        <span class="keyword">end</span>
+
+        px_prev(k) = px(k);
+        px(k) = px(k) + vx(k)*dt;
+        py_prev(k) = py(k);
+        py(k) = py(k) + vy(k)*dt;
+
+        <span class="keyword">if</span> py(k) &gt;= 100e-9 || py(k) &lt;= 0
+            <span class="comment">%[theta(k),vx(k),vy(k)] = SpecRef(theta(k),vx(k),vy(k));</span>
+            vy(k) = -vy(k);
+            <span class="keyword">if</span> py(k) &gt;= 100e-9
+                py(k) = 100e-9;
+            <span class="keyword">end</span>
+            <span class="keyword">if</span> py(k) &lt;= 0
+                py(k) = 0;
+            <span class="keyword">end</span>
+        <span class="keyword">end</span>
+        <span class="keyword">if</span> px(k) &gt;= 200e-9
+            px(k) = 0;
+            px_prev(k) = px(k);
+        <span class="keyword">elseif</span> px(k) &lt;= 0
+            px(k) = 200e-9;
+            px_prev(k) = px(k);
+        <span class="keyword">else</span>
+            px(k) = px(k);
+        <span class="keyword">end</span>
+
+        v(k) = sqrt(vx(k)^2 + vy(k)^2);
+        v2(k) = v(k).*v(k);
+
+    <span class="keyword">end</span>
+    <span class="keyword">for</span> h=1:length(sampleidx)
+        subplot(2,1,1);
+        plot([px_prev(sampleidx(h)) px(sampleidx(h))],[py_prev(sampleidx(h)) py(sampleidx(h))],<span class="string">'SeriesIndex'</span>,h)
+        hold <span class="string">on</span>
+    <span class="keyword">end</span>
+
+    KE = 0.5 * C.m_n * mean(v2);
+    T_prev = T;
+    T = KE / C.kb;
+    subplot(2,1,2);
+    <span class="comment">%plot(t, T, 'b.')</span>
+    plot([t-1 t], [T_prev T],<span class="string">'r'</span>)
+    hold <span class="string">on</span>
+
+    pause(0.01)
+<span class="keyword">end</span>
+
+T_T_C = mean(ndt)
+MFP = mean(v)*mean(ndt)
+figure(2)
+histogram(vth_calc,10)
+</pre><pre class="codeoutput">
+T_T_C =
+
+   9.5171e-13
+
+
+MFP =
+
+   1.5510e-07
+
+</pre><img vspace="5" hspace="5" src="MCMET_02.png" alt=""> <img vspace="5" hspace="5" src="MCMET_03.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% ELEC 4700 Assignment 1
+%%% Monte-Carlo Modeling of Electron Transport
+% Keegan Mauger
+% 101042551
+
+%% Section 1: Electron Modeling
+% To initialize the model, constants and a general region are created. The
+% electrons are given an effective mass, and will act as carriers in an
+% N-type Si semiconductor crystal. The region is to be modeled as a
+% rectangle with dimensions of 200nm x 100nm, while the electrons have an
+% effective mass of $0.26m_n$.
+% Assuming the temperature of the block is 300K, the thermal velocity was
+% calculated to be $vth = 1.8702e-5 m/s$, and using this, and the given      
+% mean time between collisions of 0.2ps, the mean free path was calculated
+% as $MFP = 3.7404e-8 m$, or 37.404nm.
+% 
+% A program was written to model the random motion of electrons. At the
+% start of the program, each electron is given a random direction, with
+% fixed velocity. The electrons reflect off of the y-axis bounds, and are
+% transported to the opposite x-axis border should they connect with one of
+% the two x-axis limits.
+%
+% The program produces two plots. The first is a plot of the movements for
+% a subset of electrons, showcasing the random directions and reflections.
+% The second plot shows the mean temperature of all electrons. As the
+% electrons were all given a fixed temperature (300K), this mean
+% temperature also remains fixed at 300K, indicating the expected results.
+
+% Initialization
+set(0,'DefaultFigureWindowStyle','docked')
+set(0,'defaultaxesfontsize',10)
+set(0,'defaultaxesfontname','Times New Roman')
+set(0,'DefaultLineLineWidth', 0.5);
+
+run WC
+global C
+
+C.q_0 = 1.60217653e-19;             % electron charge
+C.hb = 1.054571596e-34;             % Dirac constant
+C.h = C.hb * 2 * pi;                % Planck constant
+C.m_0 = 9.10938215e-31;             % electron mass
+C.kb = 1.3806504e-23;               % Boltzmann constant
+C.eps_0 = 8.854187817e-12;          % vacuum permittivity
+C.mu_0 = 1.2566370614e-6;           % vacuum permeability
+C.c = 299792458;                    % speed of light
+C.g = 9.80665;                      % metres (32.1740 ft) per s²
+C.m_n = 0.26 * C.m_0;               % effective electron mass
+C.am = 1.66053892e-27;              % atomic mass unit
+C.T = 300;                          % temperature
+
+% Mean free path and thermal velocity
+Tmn = 0.2e-12;
+vth = sqrt(2*C.kb * C.T / C.m_n);
+MFP = vth*Tmn;
+
+
+subplot(2,1,1);
+rectangle('Position',[0 0 200e-9 100e-9])
+hold on
+
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+% Initializing Positions
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+
+
+N = 100;        % Number of electrons
+i = 0;
+j = 0;
+
+for i=1:N
+    px(i) = 0 + (200e-9 - 0).*rand(1,1);
+    py(i) = 0 + (100e-9 - 0).*rand(1,1);
+end
+
+% Thermal Velocity and Direction
+
+for j=1:N
+    v0(j) = vth;                                % Velocity of electron
+    theta(j) = 0 + (360 - 0).*rand(1,1);        % Angle of electron
+    if theta(j) == 360
+        theta(j) = 0;
+    end
+    vx(j) = v0(j)*cos(theta(j));                % Velocity in x axis
+    vy(j) = v0(j)*sin(theta(j));                % Velocity in y axis
+end
+% 
+
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+% Updating particle locations using velocity and angle
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+% Want to choose a time step so that an electron can cover 1/100th of the
+% region in that time
+% starting velocity = 1.3224e5 m/s
+% spacial step = 100e-9/100 = 100e-11 m
+% so time step will be 1.3224e14 steps/s
+% or 7.56e-15 s/step, approximate to 1e-14 s/step
+
+
+t = 0;
+T(1) = 0;
+dt = 1e-14;     % time step
+px_prev = 0;
+py_prev = 0;
+T_prev = 0;
+
+sampleidx = randi(N,10,1);
+figure(1)
+for t=2:100
+    for k=1:N
+        px_prev(k) = px(k);
+        px(k) = px(k) + vx(k)*dt;
+        py_prev(k) = py(k);
+        py(k) = py(k) + vy(k)*dt;
+        
+        if py(k) >= 100e-9 || py(k) <= 0
+            [theta(k),vx(k),vy(k)] = SpecRef(theta(k),vx(k),vy(k));
+            if py(k) >= 100e-9
+                py(k) = 100e-9;
+            elseif py(k) <= 0
+                py(k) = 0;
+            end
+        end
+        if px(k) >= 200e-9
+            px(k) = 0;
+            px_prev(k) = px(k);
+        elseif px(k) <= 0
+            px(k) = 200e-9;
+            px_prev(k) = px(k);
+        else
+            px(k) = px(k);
+        end
+        
+        v(k) = sqrt(vx(k)^2 + vy(k)^2);
+        v2(k) = v(k).*v(k);
+        
+    end
+    for h=1:length(sampleidx)
+        subplot(2,1,1);
+        plot([px_prev(sampleidx(h)) px(sampleidx(h))],[py_prev(sampleidx(h)) py(sampleidx(h))],'SeriesIndex',h)
+        hold on 
+    end
+    
+    KE = 0.5 * C.m_n * mean(v2);
+    T_prev = T;
+    T = KE /C.kb;
+    subplot(2,1,2);
+    plot([t-1 t], [T_prev T],'r')
+    hold on
+    
+    pause(0.001)
+end
+
+
+subplot(2,1,1);
+title('Random Movements of Electrons')
+xlabel('Region Width (m)')
+ylabel('Region Height (m)')
+subplot(2,1,2);
+title('Mean Temperature over Time')
+xlabel('Timesteps (1e-14 s per step)') 
+ylabel('Temperature (K)')
+
+disp('Section 1')
+fprintf('\nThe thermal velocity is %f meters per second.',vth)
+fprintf('\nThe mean free path is %f nanometers.\n',MFP*1e9)
+
+%%% All requirements met.
+
+
+%% Section 2: Collisions with Mean Free Path
+% Modifying the code of Section 1, each starting electron is given a
+% randomized vecolcity for its x and y components using a
+% Maxwell-Boltzmann distribution.
+%
+%The average speed is found to be 
+
+
+% Initialization
+set(0,'DefaultFigureWindowStyle','docked')
+set(0,'defaultaxesfontsize',20)
+set(0,'defaultaxesfontname','Times New Roman')
+set(0,'DefaultLineLineWidth', 0.5);
+
+close all
+clear all
+global C
+
+C.q_0 = 1.60217653e-19;             % electron charge
+C.hb = 1.054571596e-34;             % Dirac constant
+C.h = C.hb * 2 * pi;                % Planck constant
+C.m_0 = 9.10938215e-31;             % electron mass
+C.kb = 1.3806504e-23;               % Boltzmann constant
+C.eps_0 = 8.854187817e-12;          % vacuum permittivity
+C.mu_0 = 1.2566370614e-6;           % vacuum permeability
+C.c = 299792458;                    % speed of light
+C.g = 9.80665;                      % metres (32.1740 ft) per s²
+C.m_n = 0.26 * C.m_0;               % effective electron mass
+C.am = 1.66053892e-27;              % atomic mass unit
+C.T = 300;
+C.vth = sqrt(2*C.kb * C.T / C.m_n);
+
+
+temp = C.T;
+
+subplot(2,1,1);
+figure(1)
+rectangle('Position',[0 0 200e-9 100e-9])
+hold on
+
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+% Initializing Positions
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+
+
+N = 1000;        % Number of electrons
+i = 0;
+j = 0;
+
+for i=1:N
+    px(i) = 0 + (200e-9 - 0).*rand(1,1);
+    py(i) = 0 + (100e-9 - 0).*rand(1,1);
+%     subplot(2,1,1);
+%     plot(px(i),py(i),'b.')
+%     hold on
+end
+
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+% Thermal Velocity and Direction
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+
+vth = C.vth;
+
+for j=1:N
+%     v0(j) = MaxBoltzDis();                                % Velocity of electron
+%     theta(j) = 0 + (360 - 0).*rand(1,1);        % Angle of electron
+%     if theta(j) == 360
+%         theta(j) = 0;
+%     end
+%     vx(j) = v0(j)*cos(theta(j));
+    vx(j) = (vth/sqrt(2))*randn();                            % Velocity in x axis
+    vy(j) = (vth/sqrt(2))*randn();
+    vth_calc(j) = sqrt(vx(j)^2 + vy(j)^2);
+    %vy(j) = v0(j)*sin(theta(j));                % Velocity in y axis
+end
+
+
+t = 0;
+T(1) = 0;
+dt = 1e-14;     % time step
+
+for l=1:N           %Scattering time step
+    ndt(l) = dt;
+end
+P_scat = 0;
+Tmn = 0.2e-12;
+
+px_prev = 0;
+py_prev = 0;
+T_prev = 0;
+
+sampleidx = randi(N,10,1);
+for t=2:100
+    for k=1:N
+        
+        P_scat(k) = 1 - exp(-(dt/Tmn));
+        %r = 0.8 + (1 - 0.8).*rand(1,1);
+        if P_scat(k) > rand()
+            vx(k) = (vth/sqrt(2))*randn();
+            vy(k) = (vth/sqrt(2))*randn();
+        else
+            ndt(k) = ndt(k) + dt;
+        end
+        
+        px_prev(k) = px(k);
+        px(k) = px(k) + vx(k)*dt;
+        py_prev(k) = py(k);
+        py(k) = py(k) + vy(k)*dt;
+        
+        if py(k) >= 100e-9 || py(k) <= 0
+            %[theta(k),vx(k),vy(k)] = SpecRef(theta(k),vx(k),vy(k));
+            vy(k) = -vy(k);
+            if py(k) >= 100e-9
+                py(k) = 100e-9;
+            end
+            if py(k) <= 0
+                py(k) = 0;
+            end
+        end
+        if px(k) >= 200e-9
+            px(k) = 0;
+            px_prev(k) = px(k);
+        elseif px(k) <= 0
+            px(k) = 200e-9;
+            px_prev(k) = px(k);
+        else
+            px(k) = px(k);
+        end
+        
+        v(k) = sqrt(vx(k)^2 + vy(k)^2);
+        v2(k) = v(k).*v(k);
+        
+    end
+    for h=1:length(sampleidx)
+        subplot(2,1,1);
+        plot([px_prev(sampleidx(h)) px(sampleidx(h))],[py_prev(sampleidx(h)) py(sampleidx(h))],'SeriesIndex',h)
+        hold on 
+    end
+    
+    KE = 0.5 * C.m_n * mean(v2);
+    T_prev = T;
+    T = KE / C.kb;
+    subplot(2,1,2);
+    %plot(t, T, 'b.')
+    plot([t-1 t], [T_prev T],'r')
+    hold on
+    
+    pause(0.01)
+end
+
+T_T_C = mean(ndt)
+MFP = mean(v)*mean(ndt)
+figure(2)
+histogram(vth_calc,10)
+
+
+##### SOURCE END #####
+--></body></html>
