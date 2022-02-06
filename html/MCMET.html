@@ -67,7 +67,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>ELEC 4700 Assignment 1</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Monte-Carlo Modeling of Electron Transport</a></li><li><a href="#2">Section 1: Electron Modeling</a></li><li><a href="#3">All requirements met.</a></li><li><a href="#4">Section 2: Collisions with Mean Free Path</a></li><li><a href="#5">Discussion</a></li><li><a href="#6">Section 3.1: General Enhancements</a></li><li><a href="#7">Discussion</a></li></ul></div><h2 id="1">Monte-Carlo Modeling of Electron Transport</h2><p>Keegan Mauger 101042551</p><h2 id="2">Section 1: Electron Modeling</h2><p>To initialize the model, constants and a general region are created. The electrons are given an effective mass, and will act as carriers in an N-type Si semiconductor crystal. The region is to be modeled as a rectangle with dimensions of 200nm x 100nm, while the electrons have an effective mass of <img src="MCMET_eq00733626314999582057.png" alt="$0.26m_n$">. Assuming the temperature of the block is 300K, the thermal velocity was calculated to be <img src="MCMET_eq16986613341317362479.png" alt="$vth = 1.8702e-5 m/s$">, and using this, and the given mean time between collisions of 0.2ps, the mean free path was calculated as <img src="MCMET_eq15871397525993775695.png" alt="$MFP = 3.7404e-8 m$">, or 37.404nm.</p><p>A program was written to model the random motion of electrons. At the start of the program, each electron is given a random direction, with fixed velocity. The electrons reflect off of the y-axis bounds, and are transported to the opposite x-axis border should they connect with one of the two x-axis limits.</p><p>The program produces two plots. The first is a plot of the movements for a subset of electrons, showcasing the random directions and reflections. The second plot shows the mean temperature of all electrons. As the electrons were all given a fixed temperature (300K), this mean temperature also remains fixed at 300K, indicating the expected results.</p><pre class="codeinput"><span class="comment">% Initialization</span>
+  </style></head><body><div class="content"><h1>ELEC 4700 Assignment 1</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Monte-Carlo Modeling of Electron Transport</a></li><li><a href="#2">Section 1: Electron Modeling</a></li><li><a href="#3">Discussion</a></li><li><a href="#4">Section 2: Collisions with Mean Free Path</a></li><li><a href="#5">Discussion</a></li><li><a href="#6">Section 3.1: General Enhancements</a></li><li><a href="#7">Discussion</a></li><li><a href="#8">Section 3.2: Special Enhancements</a></li></ul></div><h2 id="1">Monte-Carlo Modeling of Electron Transport</h2><p>Keegan Mauger 101042551</p><h2 id="2">Section 1: Electron Modeling</h2><p>To initialize the model, constants and a general region are created. The electrons are given an effective mass, and will act as carriers in an N-type Si semiconductor crystal. The region is to be modeled as a rectangle with dimensions of 200nm x 100nm, while the electrons have an effective mass of <img src="MCMET_eq00733626314999582057.png" alt="$0.26m_n$">. Assuming the temperature of the block is 300K, the thermal velocity was calculated to be <img src="MCMET_eq16986613341317362479.png" alt="$vth = 1.8702e-5 m/s$">, and using this, and the given mean time between collisions of 0.2ps, the mean free path was calculated as <img src="MCMET_eq15871397525993775695.png" alt="$MFP = 3.7404e-8 m$">, or 37.404nm.</p><p>A program was written to model the random motion of electrons. At the start of the program, each electron is given a random direction, with fixed velocity. The electrons reflect off of the y-axis bounds, and are transported to the opposite x-axis border should they connect with one of the two x-axis limits.</p><p>The program produces two plots. The first is a plot of the movements for a subset of electrons, showcasing the random directions and reflections. The second plot shows the mean temperature of all electrons. As the electrons were all given a fixed temperature (300K), this mean temperature also remains fixed at 300K, indicating the expected results.</p><pre class="codeinput"><span class="comment">% Initialization</span>
 set(0,<span class="string">'DefaultFigureWindowStyle'</span>,<span class="string">'docked'</span>)
 set(0,<span class="string">'defaultaxesfontsize'</span>,10)
 set(0,<span class="string">'defaultaxesfontname'</span>,<span class="string">'Times New Roman'</span>)
@@ -206,7 +206,7 @@ fprintf(<span class="string">'\nThe thermal velocity is %f meters per second.'</
 fprintf(<span class="string">'\nThe mean free path is %f nanometers.\n\n\n'</span>,MFP*1e9)
 pause(0.1)
 saveas(gcf,<span class="string">'Figure1'</span>)
-</pre><h2 id="3">All requirements met.</h2><pre class="codeoutput">Section 1
+</pre><h2 id="3">Discussion</h2><p>The results of the positional and temperature plots are expected. The positional plot has the expected reflections off the y axis, and the temperature plot is steady at 300K.</p><pre class="codeoutput">Section 1
 
 The thermal velocity is 187019.267608 meters per second.
 The mean free path is 37.403854 nanometers.
@@ -371,10 +371,10 @@ saveas(gcf,<span class="string">'Figure3'</span>)
 </pre><h2 id="5">Discussion</h2><p>From the histogram, it is seen that the electrons are distributed such that their mean velocity is approximately the thermal velocity. While there is a discrepancy, this is attributed to the relatively small number of electrons used. With significantly larger numbers of electrons, it is likely that the mean of the velocity would approach vth, at the expense of computing power. The differences in velocity can also be attributed to the scattering of electrons and reflection off of surfaces, both of which result in a change in velocity.</p><p>Also provided is a trajectory plot of a sample of electrons, showing the differences in electron velocity, as well as scattering. A temperature plot is also present, showing how the temperture varies over time at around 300K.</p><p>The calculated mean time between collisions was found to be approximately 0.9527ps, while the given value was 20ns. The differences in value can again be attributed to low electron counts, as well as simulation time. This calculated mean time between collisions and mean thermal velocity resulted in a mean free path of 158.7627nm.</p><p>Note that due to the inherant randomness of the simulation, the values discussed above will change through each run of the simulation. The actual values recorded during the simulation will be presented below.</p><pre class="codeoutput">Section 2
 
 The given mean free time between collisions is 2.000000e-13 seconds.
-The mean calculated time between collisions is 9.522800e-13 seconds.
-The mean calculated thermal velocity is 1.660139e+05 meters per second.
+The mean calculated time between collisions is 9.512400e-13 seconds.
+The mean calculated thermal velocity is 1.645334e+05 meters per second.
 The thermal velocity is 1.870193e+05 meters per second.
-The mean free path is 1.580601e-07 meters.
+The mean free path is 1.580512e-07 meters.
 
 
 </pre><img vspace="5" hspace="5" src="MCMET_02.png" alt=""> <img vspace="5" hspace="5" src="MCMET_03.png" alt=""> <h2 id="6">Section 3.1: General Enhancements</h2><p>To enhance the model, rectangular blocks acting as bottlenecks were placed. These boxes would reflect impacting electrons either specularly or diffusely, depending on how the variable SPECDIFF_BOUND was set.</p><p>If the boxes specularlly reflected the electrons, upon impact their velocities were changed such that, relative to the surface normal, the outgoing angle was equal to the incoming angle. If the surfaces reflected diffusely, the electrons would be reassigned velocities on impact from a normal distribution.</p><p>Using the final positions of the electrons after the simulation was run, an electron denisty map and temperature map were formed.</p><pre class="codeinput"><span class="comment">% Initialization</span>
@@ -644,7 +644,248 @@ xlabel(<span class="string">'Region x-Axis (m)'</span>)
 ylabel(<span class="string">'Region y-Axis (m)'</span>)
 zlabel(<span class="string">'Temperature (K)'</span>)
 saveas(gcf,<span class="string">'Figure6'</span>)
-</pre><h2 id="7">Discussion</h2><p>From the trajectory plot, it was seen that many electrons became trapped around the bottlenecks, resulting in an increase in density for the region adjacent to the bottlenecks, while also resulting in a lowered density elsewhere.</p><p>This result is shown on the density map, where it can be seen that the density of electons at the corners of the rectangular boundaries are greatest.</p><p>The temperature map shows that temperature tends to be greatest along the y-axis boundaries, likely due to the largest areas availble for reflection.</p><img vspace="5" hspace="5" src="MCMET_04.png" alt=""> <img vspace="5" hspace="5" src="MCMET_05.png" alt=""> <img vspace="5" hspace="5" src="MCMET_06.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020a</a><br></p></div><!--
+</pre><h2 id="7">Discussion</h2><p>From the trajectory plot, it was seen that many electrons became trapped around the bottlenecks, resulting in an increase in density for the region adjacent to the bottlenecks, while also resulting in a lowered density elsewhere.</p><p>This result is shown on the density map, where it can be seen that the density of electons at the corners of the rectangular boundaries are greatest.</p><p>The temperature map shows that temperature tends to be greatest along the y-axis boundaries, likely due to the largest areas availble for reflection.</p><img vspace="5" hspace="5" src="MCMET_04.png" alt=""> <img vspace="5" hspace="5" src="MCMET_05.png" alt=""> <img vspace="5" hspace="5" src="MCMET_06.png" alt=""> <h2 id="8">Section 3.2: Special Enhancements</h2><p>The goal of the special enhancement to the model was to create a circle that would reflect inpacting electrons in a specular method at its borders. While the method was unsuccessful, the formula is correct and will be described below.</p><p>At the point of collision with the circle, the impacting electron allows the use of three sets of data: the coordinates of the origin of the circle, the coordinates of the impacting electron against the circle's boundaries, and the line formed between the two points, which is the radius of the circle. impact3PointFinder(3, 8, 10, 2, sqrt(85))</p><p>The function "impact3PointFinder" is able to find the third missing point which, when known, would form a right angle triangle between the origin, the impact position, and the unknown point, through the use of symbolic functions, substitution, the distance equation, and the knowledge that the product of two lines perpendicular to each other is -1.  With the three points forming a right triangle, the angle between the impact velocity vector and the normal could be found, and then used to calculate the reflection vector.</p><p>Unfortunately, for unknown reasons, the function to find the unknown point only works for certain values. For example, the function running with the arguments impact3PointFinder(3, 8, 10, 2, sqrt(85)) successfully returns a point at 6.5,9.6098, however, when used in the modeling program, an error in sym/subs&gt;normalize was returned, stating: "Inconsistency between sizes of second and third arguments". It is unknown why this occurs, but if a solution were known, the program would be simple to complete.</p><p>The function is present in the code folder attached to this assignment, if the reader was interested in the result. However, since the function fails to operate properly within the confines of the model, the special enhancement planned was unable to be completed.</p><pre class="codeinput">clear <span class="string">all</span>
+close <span class="string">all</span>
+<span class="comment">% Initialization</span>
+set(0,<span class="string">'DefaultFigureWindowStyle'</span>,<span class="string">'docked'</span>)
+set(0,<span class="string">'defaultaxesfontsize'</span>,10)
+set(0,<span class="string">'defaultaxesfontname'</span>,<span class="string">'Times New Roman'</span>)
+set(0,<span class="string">'DefaultLineLineWidth'</span>, 0.5);
+
+
+<span class="keyword">global</span> C
+figure(7)
+SPECDIFF_BOUND = 0; <span class="comment">% 0=Specular reflection; 1=diffuse reflection</span>
+
+C.q_0 = 1.60217653e-19;             <span class="comment">% electron charge</span>
+C.hb = 1.054571596e-34;             <span class="comment">% Dirac constant</span>
+C.h = C.hb * 2 * pi;                <span class="comment">% Planck constant</span>
+C.m_0 = 9.10938215e-31;             <span class="comment">% electron mass</span>
+C.kb = 1.3806504e-23;               <span class="comment">% Boltzmann constant</span>
+C.eps_0 = 8.854187817e-12;          <span class="comment">% vacuum permittivity</span>
+C.mu_0 = 1.2566370614e-6;           <span class="comment">% vacuum permeability</span>
+C.c = 299792458;                    <span class="comment">% speed of light</span>
+C.g = 9.80665;                      <span class="comment">% metres (32.1740 ft) per s&sup2;</span>
+C.m_n = 0.26 * C.m_0;               <span class="comment">% effective electron mass</span>
+C.am = 1.66053892e-27;              <span class="comment">% atomic mass unit</span>
+C.T = 300;
+C.vth = sqrt(2*C.kb * C.T / C.m_n);
+
+
+temp = C.T;
+
+subplot(2,1,1);
+rectangle(<span class="string">'Position'</span>,[0 0 200e-9 100e-9])
+hold <span class="string">on</span>
+rectangle(<span class="string">'Position'</span>,[0.8e-7 0 0.4e-7 0.4e-7])
+hold <span class="string">on</span>
+rectangle(<span class="string">'Position'</span>,[0.8e-7 0.6e-7 0.4e-7 0.4e-7])
+hold <span class="string">on</span>
+rectangle(<span class="string">'Position'</span>,[1.4e-7 0.4e-7 0.2e-7 0.2e-7],<span class="string">'Curvature'</span>,[1 1])
+hold <span class="string">on</span>
+radius = 0.1e-7;
+originx = 1.5e-7;
+originy = 0.5e-7;
+
+<span class="comment">%--------------------------------------------------------------------------</span>
+<span class="comment">% Initializing Positions</span>
+<span class="comment">%--------------------------------------------------------------------------</span>
+
+
+N = 10000;        <span class="comment">% Number of electrons</span>
+i = 0;
+j = 0;
+
+<span class="keyword">for</span> i=1:N
+    px(i) = 0 + (200e-9 - 0).*rand(1,1);
+    py(i) = 0 + (100e-9 - 0).*rand(1,1);
+    <span class="keyword">while</span> (0.8e-7 &lt;= px(i) &amp;&amp; px(i) &lt;= 1.2e-7) &amp;&amp; (0 &lt;= py(i) &amp;&amp; py(i) &lt;= 0.4e-7) ||<span class="keyword">...</span>
+    (0.8e-7 &lt;= px(i) &amp;&amp; px(i) &lt;= 1.2e-7) &amp;&amp; (0.6e-7 &lt;= py(i) &amp;&amp; py(i) &lt;= 1e-7)
+        px(i) = 0 + (200e-9 - 0).*rand(1,1);
+        py(i) = 0 + (100e-9 - 0).*rand(1,1);
+    <span class="keyword">end</span>
+    <span class="comment">%subplot(2,1,1);</span>
+    <span class="comment">%plot(px(i),py(i),'b.')</span>
+    <span class="comment">%hold on</span>
+<span class="keyword">end</span>
+
+<span class="comment">%--------------------------------------------------------------------------</span>
+<span class="comment">% Thermal Velocity and Direction</span>
+<span class="comment">%--------------------------------------------------------------------------</span>
+
+vth = C.vth;
+
+<span class="keyword">for</span> j=1:N
+<span class="comment">%     v0(j) = MaxBoltzDis();                                % Velocity of electron</span>
+<span class="comment">%     theta(j) = 0 + (360 - 0).*rand(1,1);        % Angle of electron</span>
+<span class="comment">%     if theta(j) == 360</span>
+<span class="comment">%         theta(j) = 0;</span>
+<span class="comment">%     end</span>
+<span class="comment">%     vx(j) = v0(j)*cos(theta(j));</span>
+    vx(j) = (vth/sqrt(2))*randn();                            <span class="comment">% Velocity in x axis</span>
+    vy(j) = (vth/sqrt(2))*randn();
+    vth_calc(j) = sqrt(vx(j)^2 + vy(j)^2);
+    <span class="comment">%vy(j) = v0(j)*sin(theta(j));                % Velocity in y axis</span>
+<span class="keyword">end</span>
+
+
+t = 0;
+T(1) = 0;
+dt = 1e-14;     <span class="comment">% time step</span>
+
+<span class="keyword">for</span> l=1:N           <span class="comment">%Scattering time step</span>
+    ndt(l) = dt;
+<span class="keyword">end</span>
+P_scat = 0;
+Tmn = 0.2e-12;
+
+px_prev = 0;
+py_prev = 0;
+T_prev = 0;
+
+sampleidx = randi(N,10,1);
+<span class="keyword">for</span> t=2:200
+    <span class="keyword">for</span> k=1:N
+
+        P_scat(k) = 1 - exp(-(ndt(k)/Tmn));
+        <span class="comment">%r = 0.8 + (1 - 0.8).*rand(1,1);</span>
+        <span class="keyword">if</span> P_scat(k) &gt; rand()
+            ndt(k) = dt;
+            vx(k) = (vth/sqrt(2))*randn();
+            vy(k) = (vth/sqrt(2))*randn();
+        <span class="keyword">else</span>
+            ndt(k) = ndt(k) + dt;
+        <span class="keyword">end</span>
+
+        px_prev(k) = px(k);
+        px(k) = px(k) + vx(k)*dt;
+        py_prev(k) = py(k);
+        py(k) = py(k) + vy(k)*dt;
+
+        <span class="comment">% Reflection on top and bottom borders</span>
+        <span class="keyword">if</span> py(k) &gt;= 100e-9 || py(k) &lt;= 0
+            <span class="comment">%[theta(k),vx(k),vy(k)] = SpecRef(theta(k),vx(k),vy(k));</span>
+            vy(k) = -vy(k);
+            <span class="keyword">if</span> py(k) &gt;= 100e-9
+                py(k) = 100e-9;
+            <span class="keyword">end</span>
+            <span class="keyword">if</span> py(k) &lt;= 0
+                py(k) = 0;
+            <span class="keyword">end</span>
+        <span class="keyword">end</span>
+
+        <span class="comment">% Reflection on circle</span>
+        <span class="keyword">if</span> abs(originx - px(k)) &lt;= radius &amp;&amp; abs(originy - py(k)) &lt;= radius
+
+            <span class="comment">%PB = impact3PointFinder(px(k),py(k),originx,originy,radius);</span>
+        <span class="keyword">end</span>
+
+        <span class="comment">% Reflection on bottom of upper box</span>
+        <span class="keyword">if</span> (py(k) &gt;= 0.6e-7) &amp;&amp; (0.8e-7 &lt;= px(k) &amp;&amp; px(k) &lt;= 1.2e-7)
+            <span class="keyword">if</span> SPECDIFF_BOUND == 1
+                vx(k) = (vth/sqrt(2))*randn();
+                vy(k) = (vth/sqrt(2))*randn();
+            <span class="keyword">else</span>
+                vy(k) = -vy(k);
+            <span class="keyword">end</span>
+            py(k) = 0.6e-7;
+        <span class="keyword">end</span>
+        <span class="comment">% Reflection on top of lower box</span>
+        <span class="keyword">if</span> (py(k) &lt;= 0.4e-7) &amp;&amp; (0.8e-7 &lt;= px(k) &amp;&amp; px(k) &lt;= 1.2e-7)
+            <span class="keyword">if</span> SPECDIFF_BOUND == 1
+                vx(k) = (vth/sqrt(2))*randn();
+                vy(k) = (vth/sqrt(2))*randn();
+            <span class="keyword">else</span>
+                vy(k) = -vy(k);
+            <span class="keyword">end</span>
+            py(k) = 0.4e-7;
+        <span class="keyword">end</span>
+        <span class="comment">% Reflection on left of lower box</span>
+        <span class="keyword">if</span> (0 &lt;= py(k) &amp;&amp; py(k) &lt;= 0.4e-7) &amp;&amp; (0.8e-7 &lt;= px(k) &amp;&amp; px(k) &lt;= 1e-7)
+            <span class="keyword">if</span> SPECDIFF_BOUND == 1
+                vx(k) = (vth/sqrt(2))*randn();
+                vy(k) = (vth/sqrt(2))*randn();
+            <span class="keyword">else</span>
+                vx(k) = -vx(k);
+            <span class="keyword">end</span>
+            px(k) = 0.8e-7;
+        <span class="keyword">end</span>
+        <span class="comment">% Reflection on right of lower box</span>
+        <span class="keyword">if</span> (0 &lt;= py(k) &amp;&amp; py(k) &lt;= 0.4e-7) &amp;&amp; (1e-7 &lt;= px(k) &amp;&amp; px(k) &lt;= 1.2e-7)
+            <span class="keyword">if</span> SPECDIFF_BOUND == 1
+                vx(k) = (vth/sqrt(2))*randn();
+                vy(k) = (vth/sqrt(2))*randn();
+            <span class="keyword">else</span>
+                vx(k) = -vx(k);
+            <span class="keyword">end</span>
+            px(k) = 1.2e-7;
+        <span class="keyword">end</span>
+        <span class="comment">% Reflection on left of upper box</span>
+        <span class="keyword">if</span> (0.6e-7 &lt;= py(k) &amp;&amp; py(k) &lt;= 1e-7) &amp;&amp; (0.8e-7 &lt;= px(k) &amp;&amp; px(k) &lt;= 1e-7)
+            <span class="keyword">if</span> SPECDIFF_BOUND == 1
+                vx(k) = (vth/sqrt(2))*randn();
+                vy(k) = (vth/sqrt(2))*randn();
+            <span class="keyword">else</span>
+                vx(k) = -vx(k);
+            <span class="keyword">end</span>
+            px(k) = 0.8e-7;
+        <span class="keyword">end</span>
+        <span class="comment">% Reflection on right of upper box</span>
+        <span class="keyword">if</span> (0.6e-7 &lt;= py(k) &amp;&amp; py(k) &lt;= 1e-7) &amp;&amp; (1e-7 &lt;= px(k) &amp;&amp; px(k) &lt;= 1.2e-7)
+            <span class="keyword">if</span> SPECDIFF_BOUND == 1
+                vx(k) = (vth/sqrt(2))*randn();
+                vy(k) = (vth/sqrt(2))*randn();
+            <span class="keyword">else</span>
+                vx(k) = -vx(k);
+            <span class="keyword">end</span>
+            px(k) = 1.2e-7;
+        <span class="keyword">end</span>
+
+        <span class="comment">% X-axis transition</span>
+        <span class="keyword">if</span> px(k) &gt;= 200e-9
+            px(k) = 0;
+            px_prev(k) = px(k);
+        <span class="keyword">elseif</span> px(k) &lt;= 0
+            px(k) = 200e-9;
+            px_prev(k) = px(k);
+        <span class="keyword">else</span>
+            px(k) = px(k);
+        <span class="keyword">end</span>
+
+        v(k) = sqrt(vx(k)^2 + vy(k)^2);
+        v2(k) = v(k).*v(k);
+
+    <span class="keyword">end</span>
+    <span class="keyword">for</span> h=1:length(sampleidx)
+        subplot(2,1,1);
+        plot([px_prev(sampleidx(h)) px(sampleidx(h))],[py_prev(sampleidx(h)) py(sampleidx(h))],<span class="string">'SeriesIndex'</span>,h)
+        hold <span class="string">on</span>
+    <span class="keyword">end</span>
+
+    <span class="comment">% Average temperature plot</span>
+
+    KE = 0.5 * C.m_n * mean(v2);
+    T_prev = T;
+    T = KE / C.kb;
+    <span class="comment">%T_map(t) = T;</span>
+    subplot(2,1,2);
+    <span class="comment">%plot(t, T, 'b.')</span>
+    plot([t-1 t], [T_prev T],<span class="string">'r'</span>)
+    hold <span class="string">on</span>
+
+    pause(0.01)
+<span class="keyword">end</span>
+
+subplot(2,1,1);
+title(<span class="string">'Maxwell-Boltzmann Velocity Distributions of Electrons with Scattering'</span>)
+xlabel(<span class="string">'Region Width (m)'</span>)
+ylabel(<span class="string">'Region Height (m)'</span>)
+subplot(2,1,2);
+title(<span class="string">'Mean Temperature over Time'</span>)
+xlabel(<span class="string">'Timesteps (1e-14 s per step)'</span>)
+ylabel(<span class="string">'Temperature (K)'</span>)
+saveas(gcf,<span class="string">'Figure7'</span>)
+</pre><img vspace="5" hspace="5" src="MCMET_07.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% ELEC 4700 Assignment 1
 %%% Monte-Carlo Modeling of Electron Transport
@@ -815,7 +1056,10 @@ pause(0.1)
 saveas(gcf,'Figure1')
 
 
-%%% All requirements met.
+%%% Discussion
+% The results of the positional and temperature plots are expected. The
+% positional plot has the expected reflections off the y axis, and the
+% temperature plot is steady at 300K.
 
 
 %% Section 2: Collisions with Mean Free Path
@@ -1317,5 +1561,283 @@ saveas(gcf,'Figure6')
 % The temperature map shows that temperature tends to be greatest along the
 % y-axis boundaries, likely due to the largest areas availble for
 % reflection.
+
+%% Section 3.2: Special Enhancements
+% The goal of the special enhancement to the model was to create a circle
+% that would reflect inpacting electrons in a specular method at its
+% borders. While the method was unsuccessful, the formula is correct and
+% will be described below.
+%
+% At the point of collision with the circle, the impacting electron allows
+% the use of three sets of data: the coordinates of the origin of the
+% circle, the coordinates of the impacting electron against the circle's
+% boundaries, and the line formed between the two points, which is the
+% radius of the circle. impact3PointFinder(3, 8, 10, 2, sqrt(85))
+%
+% The function "impact3PointFinder" is able to find the third missing point
+% which, when known, would form a right angle triangle between the origin,
+% the impact position, and the unknown point, through the use of symbolic 
+% functions, substitution, the distance equation, and the knowledge that 
+% the product of two lines perpendicular to each other is -1.  With the
+% three points forming a right triangle, the angle between the impact
+% velocity vector and the normal could be found, and then used to calculate
+% the reflection vector.
+%
+% Unfortunately, for unknown reasons, the function to find the unknown
+% point only works for certain values. For example, the function running
+% with the arguments impact3PointFinder(3, 8, 10, 2, sqrt(85)) successfully
+% returns a point at 6.5,9.6098, however, when used in the modeling
+% program, an error in sym/subs>normalize was returned, stating:
+% "Inconsistency between sizes of second and third arguments". It is
+% unknown why this occurs, but if a solution were known, the program would
+% be simple to complete.
+%
+% The function is present in the code folder attached to this assignment,
+% if the reader was interested in the result. However, since the function
+% fails to operate properly within the confines of the model, the special
+% enhancement planned was unable to be completed.
+
+
+clear all
+close all
+% Initialization
+set(0,'DefaultFigureWindowStyle','docked')
+set(0,'defaultaxesfontsize',10)
+set(0,'defaultaxesfontname','Times New Roman')
+set(0,'DefaultLineLineWidth', 0.5);
+
+
+global C
+figure(7)
+SPECDIFF_BOUND = 0; % 0=Specular reflection; 1=diffuse reflection
+
+C.q_0 = 1.60217653e-19;             % electron charge
+C.hb = 1.054571596e-34;             % Dirac constant
+C.h = C.hb * 2 * pi;                % Planck constant
+C.m_0 = 9.10938215e-31;             % electron mass
+C.kb = 1.3806504e-23;               % Boltzmann constant
+C.eps_0 = 8.854187817e-12;          % vacuum permittivity
+C.mu_0 = 1.2566370614e-6;           % vacuum permeability
+C.c = 299792458;                    % speed of light
+C.g = 9.80665;                      % metres (32.1740 ft) per s²
+C.m_n = 0.26 * C.m_0;               % effective electron mass
+C.am = 1.66053892e-27;              % atomic mass unit
+C.T = 300;
+C.vth = sqrt(2*C.kb * C.T / C.m_n);
+
+
+temp = C.T;
+
+subplot(2,1,1);
+rectangle('Position',[0 0 200e-9 100e-9])
+hold on
+rectangle('Position',[0.8e-7 0 0.4e-7 0.4e-7])
+hold on
+rectangle('Position',[0.8e-7 0.6e-7 0.4e-7 0.4e-7])
+hold on
+rectangle('Position',[1.4e-7 0.4e-7 0.2e-7 0.2e-7],'Curvature',[1 1])
+hold on
+radius = 0.1e-7;
+originx = 1.5e-7;
+originy = 0.5e-7;
+
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+% Initializing Positions
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+
+
+N = 10000;        % Number of electrons
+i = 0;
+j = 0;
+
+for i=1:N
+    px(i) = 0 + (200e-9 - 0).*rand(1,1);
+    py(i) = 0 + (100e-9 - 0).*rand(1,1);
+    while (0.8e-7 <= px(i) && px(i) <= 1.2e-7) && (0 <= py(i) && py(i) <= 0.4e-7) ||...
+    (0.8e-7 <= px(i) && px(i) <= 1.2e-7) && (0.6e-7 <= py(i) && py(i) <= 1e-7)
+        px(i) = 0 + (200e-9 - 0).*rand(1,1);
+        py(i) = 0 + (100e-9 - 0).*rand(1,1);
+    end
+    %subplot(2,1,1);
+    %plot(px(i),py(i),'b.')
+    %hold on
+end
+
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+% Thermal Velocity and Direction
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+
+vth = C.vth;
+
+for j=1:N
+%     v0(j) = MaxBoltzDis();                                % Velocity of electron
+%     theta(j) = 0 + (360 - 0).*rand(1,1);        % Angle of electron
+%     if theta(j) == 360
+%         theta(j) = 0;
+%     end
+%     vx(j) = v0(j)*cos(theta(j));
+    vx(j) = (vth/sqrt(2))*randn();                            % Velocity in x axis
+    vy(j) = (vth/sqrt(2))*randn();
+    vth_calc(j) = sqrt(vx(j)^2 + vy(j)^2);
+    %vy(j) = v0(j)*sin(theta(j));                % Velocity in y axis
+end
+
+
+t = 0;
+T(1) = 0;
+dt = 1e-14;     % time step
+
+for l=1:N           %Scattering time step
+    ndt(l) = dt;
+end
+P_scat = 0;
+Tmn = 0.2e-12;
+
+px_prev = 0;
+py_prev = 0;
+T_prev = 0;
+
+sampleidx = randi(N,10,1);
+for t=2:200
+    for k=1:N
+        
+        P_scat(k) = 1 - exp(-(ndt(k)/Tmn));
+        %r = 0.8 + (1 - 0.8).*rand(1,1);
+        if P_scat(k) > rand()
+            ndt(k) = dt;
+            vx(k) = (vth/sqrt(2))*randn();
+            vy(k) = (vth/sqrt(2))*randn();
+        else
+            ndt(k) = ndt(k) + dt;
+        end
+        
+        px_prev(k) = px(k);
+        px(k) = px(k) + vx(k)*dt;
+        py_prev(k) = py(k);
+        py(k) = py(k) + vy(k)*dt;
+        
+        % Reflection on top and bottom borders
+        if py(k) >= 100e-9 || py(k) <= 0
+            %[theta(k),vx(k),vy(k)] = SpecRef(theta(k),vx(k),vy(k));
+            vy(k) = -vy(k);
+            if py(k) >= 100e-9
+                py(k) = 100e-9;
+            end
+            if py(k) <= 0
+                py(k) = 0;
+            end
+        end
+        
+        % Reflection on circle
+        if abs(originx - px(k)) <= radius && abs(originy - py(k)) <= radius
+
+            %PB = impact3PointFinder(px(k),py(k),originx,originy,radius);
+        end
+        
+        % Reflection on bottom of upper box
+        if (py(k) >= 0.6e-7) && (0.8e-7 <= px(k) && px(k) <= 1.2e-7)
+            if SPECDIFF_BOUND == 1
+                vx(k) = (vth/sqrt(2))*randn();
+                vy(k) = (vth/sqrt(2))*randn();
+            else
+                vy(k) = -vy(k);
+            end
+            py(k) = 0.6e-7;
+        end
+        % Reflection on top of lower box
+        if (py(k) <= 0.4e-7) && (0.8e-7 <= px(k) && px(k) <= 1.2e-7)
+            if SPECDIFF_BOUND == 1
+                vx(k) = (vth/sqrt(2))*randn();
+                vy(k) = (vth/sqrt(2))*randn();
+            else
+                vy(k) = -vy(k);
+            end
+            py(k) = 0.4e-7;
+        end
+        % Reflection on left of lower box
+        if (0 <= py(k) && py(k) <= 0.4e-7) && (0.8e-7 <= px(k) && px(k) <= 1e-7)
+            if SPECDIFF_BOUND == 1
+                vx(k) = (vth/sqrt(2))*randn();
+                vy(k) = (vth/sqrt(2))*randn();
+            else
+                vx(k) = -vx(k);
+            end
+            px(k) = 0.8e-7;
+        end
+        % Reflection on right of lower box
+        if (0 <= py(k) && py(k) <= 0.4e-7) && (1e-7 <= px(k) && px(k) <= 1.2e-7)
+            if SPECDIFF_BOUND == 1
+                vx(k) = (vth/sqrt(2))*randn();
+                vy(k) = (vth/sqrt(2))*randn();
+            else
+                vx(k) = -vx(k);
+            end
+            px(k) = 1.2e-7;
+        end
+        % Reflection on left of upper box
+        if (0.6e-7 <= py(k) && py(k) <= 1e-7) && (0.8e-7 <= px(k) && px(k) <= 1e-7)
+            if SPECDIFF_BOUND == 1
+                vx(k) = (vth/sqrt(2))*randn();
+                vy(k) = (vth/sqrt(2))*randn();
+            else
+                vx(k) = -vx(k);
+            end
+            px(k) = 0.8e-7;
+        end
+        % Reflection on right of upper box
+        if (0.6e-7 <= py(k) && py(k) <= 1e-7) && (1e-7 <= px(k) && px(k) <= 1.2e-7)
+            if SPECDIFF_BOUND == 1
+                vx(k) = (vth/sqrt(2))*randn();
+                vy(k) = (vth/sqrt(2))*randn();
+            else
+                vx(k) = -vx(k);
+            end
+            px(k) = 1.2e-7;
+        end        
+        
+        % X-axis transition
+        if px(k) >= 200e-9
+            px(k) = 0;
+            px_prev(k) = px(k);
+        elseif px(k) <= 0
+            px(k) = 200e-9;
+            px_prev(k) = px(k);
+        else
+            px(k) = px(k);
+        end
+        
+        v(k) = sqrt(vx(k)^2 + vy(k)^2);
+        v2(k) = v(k).*v(k);
+        
+    end
+    for h=1:length(sampleidx)
+        subplot(2,1,1);
+        plot([px_prev(sampleidx(h)) px(sampleidx(h))],[py_prev(sampleidx(h)) py(sampleidx(h))],'SeriesIndex',h)
+        hold on 
+    end
+    
+    % Average temperature plot
+    
+    KE = 0.5 * C.m_n * mean(v2);
+    T_prev = T;
+    T = KE / C.kb;
+    %T_map(t) = T;
+    subplot(2,1,2);
+    %plot(t, T, 'b.')
+    plot([t-1 t], [T_prev T],'r')
+    hold on
+    
+    pause(0.01)
+end
+
+subplot(2,1,1);
+title('Maxwell-Boltzmann Velocity Distributions of Electrons with Scattering')
+xlabel('Region Width (m)')
+ylabel('Region Height (m)')
+subplot(2,1,2);
+title('Mean Temperature over Time')
+xlabel('Timesteps (1e-14 s per step)') 
+ylabel('Temperature (K)')
+saveas(gcf,'Figure7')
 ##### SOURCE END #####
 --></body></html>

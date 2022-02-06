@@ -129,8 +129,18 @@ for t=2:200
         
         % Reflection on circle
         if abs(originx - px(k)) <= radius && abs(originy - py(k)) <= radius
-
-            %PB = impact3PointFinder(px(k),py(k),originx,originy,radius);
+            px(k) = originx - px(k);
+            py(k) 
+            PB = impact3PointFinder(px(k),py(k),originx,originy,radius);
+            %thetaN = asin((sqrt((Px-originx)^2+(Py-originy)^2))/radius);
+%             impact = [px(k),py(k)];
+%             theta = atand(vx(k)/vy(k));
+%             mag_v = sqrt(vx(k)^2 + vy(k)^2);
+%             new_theta = 180 - theta;
+%             vx(k) = mag_v * cos(new_theta);
+%             vy(k) = mag_v * sin(new_theta);
+%             %vx(k) = (vth/sqrt(2))*randn();
+%             %vy(k) = (vth/sqrt(2))*randn();
         end
         
         % Reflection on bottom of upper box
@@ -229,3 +239,40 @@ for t=2:200
     pause(0.01)
 end
 
+
+%--------------------------------------------------------------------------
+% Position and temperature maps
+%--------------------------------------------------------------------------
+
+E_map = [reshape(px,[N,1]),reshape(py,[N,1])];
+figure(2)
+hist3(E_map,'CDataMode','auto','FaceColor','interp')
+
+Nbins = 21;
+d = 1;
+u = 1;
+vtm = 0;
+vbm = 0;
+vbm2 = 0;
+T_map = zeros(Nbins);
+[X,Xe] = discretize(px,Nbins);
+[Y,Ye] = discretize(py,Nbins);
+
+for e=1:Nbins
+    for f=1:Nbins
+        for g=1:N
+            if X(g) == e && Y(g) == f
+                vtm(d) = v(g);
+                vtm2(d) = vtm(d).*vtm(d);
+                d = d+1;
+            end
+        end
+    vbm2 = mean(vtm2);
+    d = 1;
+    T_map(e,f) = (0.5*C.m_n*vbm2)/C.kb;
+    end
+end
+
+[V,W] = meshgrid(0:1e-8:2e-7,0:0.5e-8:1e-7);
+figure(3)
+surf(V,W,T_map,'FaceColor','interp')
