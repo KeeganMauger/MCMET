@@ -20,3 +20,6 @@ PB = [Px0 Py0];
 
 end
 
+%impact3PointFinder(1.4e-7,0.5e-7,1.5e-7,0.5e-7,0.1e-7)
+%impact3PointFinder(3, 8, 10, 2, sqrt(85))
+

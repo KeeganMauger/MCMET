@@ -64,7 +64,7 @@ hold on
 %--------------------------------------------------------------------------
 
 
-N = 100;        % Number of electrons
+N = 10000;        % Number of electrons
 i = 0;
 j = 0;
 
@@ -106,7 +106,7 @@ T_prev = 0;
 
 sampleidx = randi(N,10,1);
 figure(1)
-for t=2:100
+for t=2:200
     for k=1:N
         px_prev(k) = px(k);
         px(k) = px(k) + vx(k)*dt;
@@ -227,7 +227,7 @@ hold on
 %--------------------------------------------------------------------------
 
 
-N = 1000;        % Number of electrons
+N = 10000;        % Number of electrons
 i = 0;
 j = 0;
 
@@ -264,7 +264,7 @@ py_prev = 0;
 T_prev = 0;
 
 sampleidx = randi(N,10,1);
-for t=2:100
+for t=2:200
     for k=1:N
         
         P_scat(k) = 1 - exp(-(dt/Tmn));
