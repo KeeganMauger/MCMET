@@ -360,7 +360,14 @@ fprintf('\nThe mean free path is %e meters.\n\n\n',MFP)
 pause(0.1)
 saveas(gcf,'Figure2')
 
-%% Discussion
+figure(3)
+histogram(vth_calc,10)
+title('Maxwell-Boltzmann Distribution of Electron Velocities')
+ylabel('Number of Electrons in Velocity Bins')
+xlabel('Velocity of Electrons (meters per second)')
+saveas(gcf,'Figure3')
+
+%%% Discussion
 % From the histogram, it is seen that the electrons are distributed such
 % that their mean velocity is approximately the thermal velocity. While
 % there is a discrepancy, this is attributed to the inherent randomness of
@@ -381,15 +388,6 @@ saveas(gcf,'Figure2')
 % Note that due to the inherant randomness of the simulation, the values
 % discussed above will change through each run of the simulation. The
 % actual values recorded during the simulation will be presented below.
-
-figure(3)
-histogram(vth_calc,10)
-title('Maxwell-Boltzmann Distribution of Electron Velocities')
-ylabel('Number of Electrons in Velocity Bins')
-xlabel('Velocity of Electrons (meters per second)')
-saveas(gcf,'Figure3')
-
-
 
 %% Section 3.1: General Enhancements
 % To enhance the model, rectangular blocks acting as bottlenecks were
